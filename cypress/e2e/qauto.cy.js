@@ -38,3 +38,4 @@ describe('QAuto Header and Footer elements', () => {
       });
   });
 });
+//test commit
