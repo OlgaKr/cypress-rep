@@ -1,7 +1,7 @@
 import RegistrationPage from '../pages/RegistrationPage';
 import LoginPage from '../pages/LoginPage';
 import SettingsPage from '../pages/SettingsPage';
-import userData from '../fixtures/userData.json';
+import testData from '../fixtures/testData.json';
 
 describe('Registration form', () => {
   beforeEach(() => {
@@ -45,20 +45,21 @@ describe('Registration form', () => {
    RegistrationPage.verifyRegisterButtonIsDisabled();
    });
 
-  it('should register user with valid data and login with created credentials', () => {
-   const email = `olga${Date.now()}@test.com`;
+it('should register user with valid data and login with created credentials', () => {
+  const email = `olga${Date.now()}@test.com`;
 
-   cy.register(
-    userData.validUser.name, 
-    userData.validUser.lastName, 
-    email, 
-    userData.validUser.password);
+  RegistrationPage.register(
+    testData.validUser.name,
+    testData.validUser.lastName,
+    email,
+    testData.validUser.password
+  );
 
-    RegistrationPage.verifySignUpButtonNotExist();
-    SettingsPage.logout();
-    cy.login(email, userData.validUser.password);
-    LoginPage.verifySignInButtonNotExist();
-    cy.deleteAccount();
-    });
-
+  RegistrationPage.verifySignUpButtonNotExist();
+  SettingsPage.logout();
+  LoginPage.login(email, testData.validUser.password);
+  LoginPage.verifySignInButtonNotExist();
+  SettingsPage.deleteAccount();
+});
+    
 });

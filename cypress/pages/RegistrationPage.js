@@ -1,4 +1,6 @@
-class RegistrationPage {
+import BasePage from './BasePage';
+
+class RegistrationPage extends BasePage {
   selectors = {
     nameInput: '#signupName',
     lastNameInput: '#signupLastName',
@@ -6,104 +8,105 @@ class RegistrationPage {
     passwordInput: '#signupPassword',
     repeatPasswordInput: '#signupRepeatPassword',
     registerButton: 'button:contains("Register")',
-    signUpButton: 'button:contains("Sign up")'
+    signUpButton: 'button:contains("Sign up")',
   };
 
   getNameInput() {
-    return cy.get(this.selectors.nameInput);
+    return this.getElement(this.selectors.nameInput);
   }
 
   getLastNameInput() {
-    return cy.get(this.selectors.lastNameInput);
+    return this.getElement(this.selectors.lastNameInput);
   }
 
   getEmailInput() {
-    return cy.get(this.selectors.emailInput);
+    return this.getElement(this.selectors.emailInput);
   }
 
   getPasswordInput() {
-    return cy.get(this.selectors.passwordInput);
+    return this.getElement(this.selectors.passwordInput);
   }
 
   getRepeatPasswordInput() {
-    return cy.get(this.selectors.repeatPasswordInput);
+    return this.getElement(this.selectors.repeatPasswordInput);
   }
 
   getRegisterButton() {
-    return cy.get(this.selectors.registerButton);
+    return this.getElement(this.selectors.registerButton);
   }
 
   getSignUpButton() {
-  return cy.get(this.selectors.signUpButton);
-}
-
-  open() {
-    cy.visit('/');
-}
+    return this.getElement(this.selectors.signUpButton);
+  }
 
   typeName(name) {
-  return this.getNameInput().clear().type(name);
-}
+    return this.type(this.selectors.nameInput, name);
+  }
 
   typeLastName(lastName) {
-    return this.getLastNameInput().clear().type(lastName);
+    return this.type(this.selectors.lastNameInput, lastName);
   }
 
   typeEmail(email) {
-    return this.getEmailInput().clear().type(email);
+    return this.type(this.selectors.emailInput, email);
   }
 
   typePassword(password) {
-    return this.getPasswordInput().clear().type(password);
+    return this.type(this.selectors.passwordInput, password);
   }
 
-  typeRepeatPassword(pass) {
-    return this.getRepeatPasswordInput().clear().type(pass);
+  typeRepeatPassword(password) {
+    return this.type(this.selectors.repeatPasswordInput, password);
   }
 
   clickRegister() {
-    return this.getRegisterButton().click();
+    return this.click(this.selectors.registerButton);
   }
 
   clickSignUp() {
-    return this.getSignUpButton().click();
-}
+    return this.click(this.selectors.signUpButton);
+  }
 
-verifyRegistrationFormIsOpen() {
-  this.getNameInput().should('be.visible');
-  this.getLastNameInput().should('be.visible');
-  this.getEmailInput().should('be.visible');
-  this.getPasswordInput().should('be.visible');
-  this.getRepeatPasswordInput().should('be.visible');
-  this.getRegisterButton().should('be.visible');
-}
+  verifyRegistrationFormIsOpen() {
+    this.verifyVisible(this.selectors.nameInput);
+    this.verifyVisible(this.selectors.lastNameInput);
+    this.verifyVisible(this.selectors.emailInput);
+    this.verifyVisible(this.selectors.passwordInput);
+    this.verifyVisible(this.selectors.repeatPasswordInput);
+    this.verifyVisible(this.selectors.registerButton);
+  }
 
-verifyErrorMessage(text) {
-  cy.contains(text).should('be.visible').and('contain', text);
-}
+  verifyErrorMessage(text) {
+    return cy.contains(text).should('be.visible').and('contain', text);
+  }
 
-verifyRegisterButtonIsDisabled() {
-  this.getRegisterButton().should('be.disabled');
-}
+  verifyRegisterButtonIsDisabled() {
+    return this.verifyDisabled(this.selectors.registerButton);
+  }
 
-verifySignUpButtonNotExist() {
-  this.getSignUpButton().should('not.exist');
-}
+  verifySignUpButtonNotExist() {
+    return this.verifyNotExist(this.selectors.signUpButton);
+  }
 
-openSignUpForm() {
-  this.open();
-  this.clickSignUp();
-  this.verifyRegistrationFormIsOpen();
-}
+  openSignUpForm() {
+    this.open();
+    this.clickSignUp();
+    this.verifyRegistrationFormIsOpen();
+  }
 
-fillRegistrationForm(name, lastName, email, password) {
-  this.typeName(name);
-  this.typeLastName(lastName);
-  this.typeEmail(email);
-  this.typePassword(password);
-  this.typeRepeatPassword(password);
-}
+  fillRegistrationForm(name, lastName, email, password) {
+    this.typeName(name);
+    this.typeLastName(lastName);
+    this.typeEmail(email);
+    this.typePassword(password);
+    this.typeRepeatPassword(password);
+  }
 
+  register(name, lastName, email, password) {
+  //this.openSignUpForm();
+  this.fillRegistrationForm(name, lastName, email, password);
+  this.clickRegister();
+}
 }
 
 export default new RegistrationPage();

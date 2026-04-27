@@ -1,4 +1,6 @@
-class LoginPage {
+import BasePage from './BasePage';
+
+class LoginPage extends BasePage {
   selectors = {
     signInButton: 'button:contains("Sign In")',
     emailInput: '#signinEmail',
@@ -7,40 +9,55 @@ class LoginPage {
   };
 
   getSignInButton() {
-    return cy.get(this.selectors.signInButton);
+    return this.getElement(this.selectors.signInButton);
   }
 
   getEmailInput() {
-    return cy.get(this.selectors.emailInput);
+    return this.getElement(this.selectors.emailInput);
   }
 
   getPasswordInput() {
-    return cy.get(this.selectors.passwordInput);
+    return this.getElement(this.selectors.passwordInput);
   }
 
   getLoginButton() {
-    return cy.get(this.selectors.loginButton);
+    return this.getElement(this.selectors.loginButton);
   }
 
   clickSignIn() {
-    this.getSignInButton().click();
+    return this.click(this.selectors.signInButton);
   }
 
   typeEmail(email) {
-    this.getEmailInput().clear().type(email);
+    return this.type(this.selectors.emailInput, email);
   }
 
   typePassword(password) {
-    this.getPasswordInput().clear().type(password);
+    return this.type(this.selectors.passwordInput, password);
   }
 
   clickLogin() {
-    this.getLoginButton().click();
+    return this.click(this.selectors.loginButton);
   }
 
   verifySignInButtonNotExist() {
-  this.getSignInButton().should('not.exist');
-}
+    return this.verifyNotExist(this.selectors.signInButton);
+  }
+
+  login(email, password) {
+    this.clickSignIn();
+    this.typeEmail(email);
+    this.typePassword(password);
+    return this.clickLogin();
+  }
+
+ openAndLogin() {
+   this.open();
+   this.login(
+    Cypress.env('email'),
+    Cypress.env('password')
+  );
+  }
 }
 
 export default new LoginPage();

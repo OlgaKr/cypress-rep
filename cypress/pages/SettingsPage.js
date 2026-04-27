@@ -1,4 +1,6 @@
-class SettingsPage {
+import BasePage from './BasePage';
+
+class SettingsPage extends BasePage {
   selectors = {
     settingsLink: 'a[href="/panel/settings"]:visible',
     logoutLink: 'a:contains("Log out")',
@@ -8,40 +10,40 @@ class SettingsPage {
   };
 
   getSettingsLink() {
-    return cy.get(this.selectors.settingsLink);
+    return this.getElement(this.selectors.settingsLink);
   }
 
   getLogoutLink() {
-    return cy.contains('a', 'Log out');
+    return this.getElement(this.selectors.logoutLink);
   }
 
   getRemoveAccountButton() {
-    return cy.get(this.selectors.removeAccountButton);
+    return this.getElement(this.selectors.removeAccountButton);
   }
 
   getModal() {
-    return cy.get(this.selectors.modal);
+    return this.getElement(this.selectors.modal);
   }
 
   getConfirmRemoveButton() {
-    return cy.get(this.selectors.confirmRemoveButton);
+    return this.getElement(this.selectors.confirmRemoveButton);
   }
 
   goToSettings() {
-    this.getSettingsLink().click();
+    return this.click(this.selectors.settingsLink);
   }
 
   logout() {
-    this.getLogoutLink().click();
+    return this.click(this.selectors.logoutLink);
   }
 
   deleteAccount() {
+    this.goToSettings();
     this.getRemoveAccountButton().scrollIntoView().click();
-
     this.getModal().within(() => {
-      this.getConfirmRemoveButton().click();
-    });
-  }
+    this.click(this.selectors.confirmRemoveButton);
+  });
+}
 }
 
 export default new SettingsPage();
