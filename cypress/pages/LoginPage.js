@@ -51,12 +51,12 @@ class LoginPage extends BasePage {
     return this.clickLogin();
   }
 
- openAndLogin() {
-   this.open();
-   this.login(
-    Cypress.env('email'),
-    Cypress.env('password')
-  );
+  openAndLogin() {
+    this.open();
+    this.login(
+     Cypress.env('email'),
+     Cypress.env('password')
+    );
   }
 }
 

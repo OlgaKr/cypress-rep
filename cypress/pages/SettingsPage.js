@@ -41,7 +41,7 @@ class SettingsPage extends BasePage {
     this.goToSettings();
     this.getRemoveAccountButton().scrollIntoView().click();
     this.getModal().within(() => {
-    this.click(this.selectors.confirmRemoveButton);
+     this.getConfirmRemoveButton().click();
   });
 }
 }

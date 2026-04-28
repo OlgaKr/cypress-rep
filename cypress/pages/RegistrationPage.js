@@ -103,9 +103,8 @@ class RegistrationPage extends BasePage {
   }
 
   register(name, lastName, email, password) {
-  //this.openSignUpForm();
-  this.fillRegistrationForm(name, lastName, email, password);
-  this.clickRegister();
+    this.fillRegistrationForm(name, lastName, email, password);
+    this.clickRegister();
 }
 }
 
