@@ -1,0 +1,18 @@
+{
+  "validUser": {
+    "name": "Olga",
+    "lastName": "Test",
+    "password": "Password123"
+  },
+  "car": {
+    "brand": "BMW",
+    "model": "5",
+    "fullName": "BMW 5",
+    "mileage": "100"
+  },
+  "expense": {
+    "mileage": "150",
+    "liters": "20",
+    "cost": "25"
+  }
+}
