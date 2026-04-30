@@ -65,6 +65,26 @@ class GaragePage extends BasePage {
     this.clickAdd();
   }
 
+  addCarAndGetId(brand, model, mileage) {
+  this.openGarage();
+
+  this.addCar(brand, model, mileage);
+
+  return cy.wait('@createCar').then((interception) => {
+    expect(interception.response.statusCode).to.eq(201);
+
+    return interception.response.body.data.id;
+  });
+}
+
+  deleteCarById(carId) {
+  return cy.request({
+    method: 'DELETE',
+    url: `/api/cars/${carId}`,
+    failOnStatusCode: false,
+  });
+}
+
   clickRemoveCar() {
     return this.click(this.selectors.removeCarButton);
   }
