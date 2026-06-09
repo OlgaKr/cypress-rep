@@ -3,7 +3,7 @@ const { defineConfig } = require("cypress");
 module.exports = defineConfig({
   allowCypressEnv: false,
   e2e: {
-    baseUrl: "https://www.google.com",
+    baseUrl: "https://guest:welcome2qauto@qauto.forstudy.space",
     viewportWidth: 1366,
     viewportHeight: 768,
     defaultCommandTimeout: 6000,
